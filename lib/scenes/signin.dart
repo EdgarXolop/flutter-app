@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ari/scenes/main.dart';
-
+import 'package:ari/util/auth.dart';
 class Signin extends StatefulWidget{
 
   @override
@@ -9,9 +9,12 @@ class Signin extends StatefulWidget{
 }
 
 class _Signin extends State {
+  
+  static final formKey = new GlobalKey<FormState>();
 
   final _formDistance = 15.0;
 
+  String _errorMessage = "";
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
@@ -37,75 +40,119 @@ class _Signin extends State {
       ),
       body: Padding(
         padding: EdgeInsets.all(_formDistance),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: <Widget>[
-              Padding(
-                padding: EdgeInsets.only(
-                  top: _formDistance,
-                  bottom: _formDistance
-                ),
-                child: TextField(
-                  controller: emailController,
-                  style: textStyle1,
-                  textCapitalization: TextCapitalization.none,
-                  keyboardType: TextInputType.emailAddress,
-                  decoration: InputDecoration(
-                    labelText: "Correo",
-                    labelStyle: textStyle1,
-                    border: UnderlineInputBorder(
-                      borderRadius: BorderRadius.circular(5.0),
-                      borderSide: BorderSide(
-                        color: Theme.of(context).primaryColorLight
+        child: Form(
+          key: formKey,
+          child: ListView(
+            children: <Widget>[
+                Padding(
+                  padding: EdgeInsets.only(
+                    top: _formDistance,
+                    bottom: _formDistance
+                  ),
+                  child: TextFormField(
+                    autovalidate: true,
+                    controller: emailController,
+                    style: textStyle1,
+                    textCapitalization: TextCapitalization.none,
+                    keyboardType: TextInputType.emailAddress,
+                    validator: (value) => value.isEmpty ? 'Debe ingresar su correo':null,
+                    decoration: InputDecoration(
+                      labelText: "Correo",
+                      labelStyle: textStyle1,
+                      border: UnderlineInputBorder(
+                        borderRadius: BorderRadius.circular(5.0),
+                        borderSide: BorderSide(
+                          color: Theme.of(context).primaryColorLight
+                        )
                       )
-                    )
+                    ),
                   ),
                 ),
-              ),
-              Padding(
-                padding: EdgeInsets.only(
-                  top: _formDistance,
-                  bottom: _formDistance
-                ),
-                child: TextField(
-                  obscureText: true,
-                  controller: passwordController,
-                  style: textStyle1,
-                  decoration: InputDecoration(
-                    labelText: "Contraseña",
-                    labelStyle: textStyle1,
-                    border: UnderlineInputBorder(
-                      borderRadius: BorderRadius.circular(5.0),
-                      borderSide: BorderSide(
-                        color: Theme.of(context).primaryColorLight
-                      ),
-                    )
+                Padding(
+                  padding: EdgeInsets.only(
+                    top: _formDistance,
+                    bottom: _formDistance
+                  ),
+                  child: TextFormField(
+                    obscureText: true,
+                    autovalidate: true,
+                    controller: passwordController,
+                    style: textStyle1,
+                    validator: (value) => value.isEmpty ? 'Debe ingresar su contraseña':null,
+                    decoration: InputDecoration(
+                      labelText: "Contraseña",
+                      labelStyle: textStyle1,
+                      border: UnderlineInputBorder(
+                        borderRadius: BorderRadius.circular(5.0),
+                        borderSide: BorderSide(
+                          color: Theme.of(context).primaryColorLight
+                        ),
+                      )
+                    ),
                   ),
                 ),
-              ),
-              Padding(
-                padding: EdgeInsets.only(
-                  top: _formDistance,
-                  bottom: _formDistance
-                ),
-                child: RaisedButton(
-                  color: Theme.of(context).primaryColorDark,
-                  textColor: Theme.of(context).primaryColorLight,
-                  onPressed: ()=>this.navigateToMainPage(context),
-                  child: Text(
-                    'Conectarse'
+                _showErrorMessage(),
+                Padding(
+                  padding: EdgeInsets.only(
+                    top: _formDistance,
+                    bottom: _formDistance
+                  ),
+                  child: RaisedButton(
+                    color: Theme.of(context).primaryColorDark,
+                    textColor: Theme.of(context).primaryColorLight,
+                    onPressed: ()=>this.signIn(context),
+                    child: Text(
+                      'Conectarse'
+                    ),
                   ),
                 ),
-              ),
-          ],
+            ],
+          ),
         ),
       ),
     );
   }
+  
+  Widget _showErrorMessage() {
+    if ( _errorMessage.length > 0 ) {
+      return new Text(
+        _errorMessage,
+        style: TextStyle(
+            fontSize: 13.0,
+            color: Colors.red,
+            height: 1.0,
+            fontWeight: FontWeight.w300),
+      );
+    } else {
+      return new Container(
+        height: 0.0,
+      );
+    }
+  }
+
+  bool validateAndSave() {
+      final form = formKey.currentState;
+      if (form.validate()) {
+        form.save();
+        return true;
+      }
+      return false;
+  }
 
 
-  void navigateToMainPage(BuildContext context){
+  void signIn(BuildContext context) async {
 
-    Navigator.push(context, MaterialPageRoute(builder: (context) => Main()));
+    if(this.validateAndSave()){
+      try {
+        await Auth().signIn(emailController.text, passwordController.text);
+
+        Navigator.push(context, MaterialPageRoute(builder: (context) => Main()));
+      } catch (e) {
+        setState(() {
+         _errorMessage="Usuario inválido"; 
+        });
+      }
+
+    }
   }
 }
