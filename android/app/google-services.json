@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "650961403446",
+    "firebase_url": "https://airi-afb6e.firebaseio.com",
+    "project_id": "airi-afb6e",
+    "storage_bucket": "airi-afb6e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:650961403446:android:9bc73a4d877219d6",
+        "android_client_info": {
+          "package_name": "com.example.ari"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "650961403446-ct5l9ipls0cglo1m2h80jmr8agiqhkaq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDbaSq1P1L4bA9BAD_lzh2sE7MkXQgN9N4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "650961403446-ct5l9ipls0cglo1m2h80jmr8agiqhkaq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
