@@ -1,5 +1,5 @@
+import 'package:Ari/scenes/home.dart';
 import 'package:flutter/material.dart';
-import 'package:ari/scenes/home.dart';
 
 void main() => runApp(MyApp());
 

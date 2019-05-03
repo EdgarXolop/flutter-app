@@ -1,3 +1,4 @@
+import 'package:Ari/scenes/related.dart';
 import 'package:flutter/material.dart';
 
 class Main extends StatelessWidget {
@@ -19,14 +20,19 @@ class Main extends StatelessWidget {
             Center(
               child: FlatButton(
                 color: Theme.of(context).primaryColorDark,
-                onPressed: () => {},
+                onPressed: () { showRelated(context, "electricity", "Electricidad"); },
                 child: Column( 
                   children: <Widget>[
-                    Text("Pinturua"),
+                    Text(
+                      "Electricidad",
+                      style: TextStyle(
+                        color: Color(0xFFFFFFFF),
+                      )
+                    ),
                     Image(
                       image: AssetImage('assets/images/menu_1.png'),
                       width: 80,
-                      height: 100,
+                      height: 100
                     ),
                   ],
                 ),
@@ -39,10 +45,15 @@ class Main extends StatelessWidget {
                   padding: EdgeInsets.only(right: _paddingElement),
                   child: FlatButton(
                     color: Theme.of(context).primaryColorDark,
-                    onPressed: () => {},
+                    onPressed: ()  { showRelated(context, "painting", "Pintura"); },
                     child: Column( 
                       children: <Widget>[
-                        Text("Pinturua"),
+                        Text(
+                          "Pintura",
+                          style: TextStyle(
+                            color: Color(0xFFFFFFFF),
+                          )
+                        ),
                         Image(
                           image: AssetImage('assets/images/menu_2.png'),
                           width: 80,
@@ -56,10 +67,15 @@ class Main extends StatelessWidget {
                   padding: EdgeInsets.only(left: _paddingElement),
                   child: FlatButton(
                     color: Theme.of(context).primaryColorDark,
-                    onPressed: () => {},
+                    onPressed: ()  { showRelated(context, "plumbing", "Plomería"); },
                     child: Column( 
                       children: <Widget>[
-                        Text("Plomeria"),
+                        Text(
+                          "Plomeria",
+                          style: TextStyle(
+                            color: Color(0xFFFFFFFF),
+                          )
+                        ),
                         Image(
                           image: AssetImage('assets/images/menu_3.png'),
                           width: 80,
@@ -75,7 +91,7 @@ class Main extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.end,
               children: <Widget>[
                 Image(
-                  image: AssetImage('assets/images/brand.png'),
+                  image: AssetImage('assets/images/logo.png'),
                   width: 80,
                   height: 100,
                 )
@@ -97,4 +113,10 @@ class Main extends StatelessWidget {
     
   }
 
+  void showRelated(BuildContext context, String jobkey, String jobDescription) {
+    Navigator.push(context, MaterialPageRoute(builder: (context) => RelatedJob(jobType: jobkey, jobDescription: jobDescription,)));
+  }
+
 }
+
+

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:ari/scenes/signin.dart';
-import 'package:ari/scenes/signup.dart';
+import 'package:Ari/scenes/signin.dart';
+import 'package:Ari/scenes/signup.dart';
 
 class Home extends StatelessWidget {
 

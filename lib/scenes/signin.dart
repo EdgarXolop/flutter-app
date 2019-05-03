@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:ari/scenes/main.dart';
-import 'package:ari/util/auth.dart';
+import 'package:Ari/scenes/main.dart';
+import 'package:Ari/util/auth.dart';
 class Signin extends StatefulWidget{
 
   @override
