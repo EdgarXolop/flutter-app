@@ -1,4 +1,4 @@
-import 'package:Ari/scenes/related.dart';
+import 'package:Ari/scenes/job/joblist.dart';
 import 'package:flutter/material.dart';
 
 class Main extends StatelessWidget {
@@ -113,8 +113,8 @@ class Main extends StatelessWidget {
     
   }
 
-  void showRelated(BuildContext context, String jobkey, String jobDescription) {
-    Navigator.push(context, MaterialPageRoute(builder: (context) => RelatedJob(jobType: jobkey, jobDescription: jobDescription,)));
+  void showRelated(BuildContext context, String jobType, String jobDescriprion ) {
+    Navigator.push(context, MaterialPageRoute(builder: (context) => JobProfileList(jobType: jobType, jobDescription: jobDescriprion,)));
   }
 
 }
