@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter/material.dart';
 import 'package:Ari/models/job.dart';
 import 'package:firebase_database/firebase_database.dart';
@@ -100,7 +101,7 @@ class _JobProfileDetailState extends State{
                         child: RaisedButton(
                           color: Theme.of(context).primaryColorDark,
                           textColor: Theme.of(context).primaryColorLight,
-                          onPressed: ()=>this.checkout(context),
+                          onPressed: ()=>this.contact(),
                           child: Text(
                             'Contactar'
                           ),
@@ -157,6 +158,10 @@ class _JobProfileDetailState extends State{
       return Theme.of(context).primaryColorDark;
     else
       return Theme.of(context).accentColor;
+  }
+
+  void contact (){
+    launch("tel://"+this.jobProfile.phone);
   }
 
   void checkout (BuildContext context) {
