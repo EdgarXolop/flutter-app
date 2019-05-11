@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:Ari/models/job.dart';
 import 'package:firebase_database/firebase_database.dart';
@@ -134,6 +135,23 @@ class _JobProfileDetailState extends State{
     );
   }
 
+  Widget getSpinner(){
+      return new Stack(
+              children: [
+                new Opacity(
+                  opacity: 0.3,
+                  child: const ModalBarrier(dismissible: false, color: Colors.grey),
+                ),
+                new Center(
+                  child: new CircularProgressIndicator(),
+                ),
+                new Center(
+                  child: new CircularProgressIndicator(),
+                ),
+              ],
+            );
+  }
+
   Color getStarColor(int star,int rate){
     if(star <= rate )
       return Theme.of(context).primaryColorDark;
@@ -142,12 +160,22 @@ class _JobProfileDetailState extends State{
   }
 
   void checkout (BuildContext context) {
+    
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      child: getSpinner()
+    );
 
     this.jobProfile.available = 0;
 
     _database.reference().child("JobProfile").child(this.jobProfile.key).set(this.jobProfile.toJson());
 
-    Navigator.pop(context, false);
+    new Future.delayed(new Duration(seconds: 3),(){
+      Navigator.pop(context);
+      Navigator.pop(context, false); 
+
+    });
   }
 
 }
