@@ -38,94 +38,98 @@ class _JobProfileDetailState extends State{
         ),
       ),
       backgroundColor: Theme.of(context).primaryColorLight,
-      body: Padding(
-        padding: EdgeInsets.all(_formDistance),
-        child:Column(
-          children: <Widget>[
-            Center(
-              child: ClipRRect(
-                borderRadius: new BorderRadius.circular(100.0),
-                child: Image.network(
-                  jobProfile.avatar,
-                  height: 200,
-                ),
-              ),
-            ),
-            Center(
-              child: Padding(
-                padding: EdgeInsets.all(_formDistance),
-                child: Text(jobProfile.name,style: TextStyle(color: Theme.of(context).primaryColorDark,fontSize: 18),),
-              ),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+      body: ListView(
+        children: <Widget>[
+          Padding(
+            padding: EdgeInsets.all(_formDistance),
+            child:Column(
               children: <Widget>[
-                Icon(Icons.star,color: getStarColor(1,this.jobProfile.rate)),
-                Icon(Icons.star,color: getStarColor(2,this.jobProfile.rate)),
-                Icon(Icons.star,color: getStarColor(3,this.jobProfile.rate)),
-                Icon(Icons.star,color: getStarColor(4,this.jobProfile.rate)),
-                Icon(Icons.star,color: getStarColor(5,this.jobProfile.rate)),
+                Center(
+                  child: ClipRRect(
+                    borderRadius: new BorderRadius.circular(100.0),
+                    child: Image.network(
+                      jobProfile.avatar,
+                      height: 200,
+                    ),
+                  ),
+                ),
+                Center(
+                  child: Padding(
+                    padding: EdgeInsets.all(_formDistance),
+                    child: Text(jobProfile.name,style: TextStyle(color: Theme.of(context).primaryColorDark,fontSize: 18),),
+                  ),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Icon(Icons.star,color: getStarColor(1,this.jobProfile.rate)),
+                    Icon(Icons.star,color: getStarColor(2,this.jobProfile.rate)),
+                    Icon(Icons.star,color: getStarColor(3,this.jobProfile.rate)),
+                    Icon(Icons.star,color: getStarColor(4,this.jobProfile.rate)),
+                    Icon(Icons.star,color: getStarColor(5,this.jobProfile.rate)),
+                  ],
+                ),
+                Padding(
+                  padding: EdgeInsets.only(top:_formDistance),
+                  child: Text("Diagnostico Q100.",
+                    style: TextStyle(
+                      fontSize: 14,
+                      color: Colors.grey
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.only(top:_formDistance,bottom: _formDistance),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Padding(
+                        padding: EdgeInsets.only(right: _formDistance),
+                        child: RaisedButton(
+                          color: Theme.of(context).primaryColorDark,
+                          textColor: Theme.of(context).primaryColorLight,
+                          onPressed: ()=>this.checkout(context),
+                          child: Text(
+                          'Solicitar'
+                          )
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(left: _formDistance),
+                        child: RaisedButton(
+                          color: Theme.of(context).primaryColorDark,
+                          textColor: Theme.of(context).primaryColorLight,
+                          onPressed: ()=>this.checkout(context),
+                          child: Text(
+                            'Contactar'
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Text("Experiencia: ",
+                    style: TextStyle(
+                      fontSize: 20,
+                      color: Theme.of(context).primaryColorDark
+                    ),
+                  ),
+                Container(
+                  height: 150,
+                  child:ListView.builder(
+                    itemCount: exp.length,
+                    itemBuilder: (context, index) {
+                      return Padding(
+                        padding: EdgeInsets.all(5.0),
+                        child: Text(exp[index].trim(),textAlign: TextAlign.center,),
+                      );
+                    },
+                  ),
+                ),
               ],
             ),
-            Padding(
-              padding: EdgeInsets.only(top:_formDistance),
-              child: Text("Diagnostico Q100.",
-                style: TextStyle(
-                  fontSize: 14,
-                  color: Colors.grey
-                ),
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.only(top:_formDistance,bottom: _formDistance),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Padding(
-                    padding: EdgeInsets.only(right: _formDistance),
-                    child: RaisedButton(
-                      color: Theme.of(context).primaryColorDark,
-                      textColor: Theme.of(context).primaryColorLight,
-                      onPressed: ()=>this.checkout(context),
-                      child: Text(
-                      'Solicitar'
-                      )
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(left: _formDistance),
-                    child: RaisedButton(
-                      color: Theme.of(context).primaryColorDark,
-                      textColor: Theme.of(context).primaryColorLight,
-                      onPressed: ()=>this.checkout(context),
-                      child: Text(
-                        'Contactar'
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Text("Experiencia: ",
-                style: TextStyle(
-                  fontSize: 20,
-                  color: Theme.of(context).primaryColorDark
-                ),
-              ),
-            Container(
-              height: 150,
-              child:ListView.builder(
-                itemCount: exp.length,
-                itemBuilder: (context, index) {
-                  return Padding(
-                    padding: EdgeInsets.all(5.0),
-                    child: Text(exp[index].trim(),textAlign: TextAlign.center,),
-                  );
-                },
-              ),
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
