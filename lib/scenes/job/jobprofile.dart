@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:Ari/models/job.dart';
-
-
+import 'package:firebase_database/firebase_database.dart';
 
 class JobProfileDetail extends StatefulWidget{
   final JobProfile jobProfile;
@@ -14,6 +13,7 @@ class JobProfileDetail extends StatefulWidget{
 
 
 class _JobProfileDetailState extends State{
+  final FirebaseDatabase _database = FirebaseDatabase.instance;
   JobProfile jobProfile;
   _JobProfileDetailState(this.jobProfile);
   final _formDistance = 15.0;
@@ -86,7 +86,7 @@ class _JobProfileDetailState extends State{
                     child: RaisedButton(
                       color: Theme.of(context).primaryColorDark,
                       textColor: Theme.of(context).primaryColorLight,
-                      onPressed: ()=>{},
+                      onPressed: ()=>this.checkout(context),
                       child: Text(
                       'Solicitar'
                       )
@@ -97,7 +97,7 @@ class _JobProfileDetailState extends State{
                     child: RaisedButton(
                       color: Theme.of(context).primaryColorDark,
                       textColor: Theme.of(context).primaryColorLight,
-                      onPressed: ()=>{},
+                      onPressed: ()=>this.checkout(context),
                       child: Text(
                         'Contactar'
                       ),
@@ -130,10 +130,20 @@ class _JobProfileDetailState extends State{
     );
   }
 
-  Color getStarColor(int star,double rate){
+  Color getStarColor(int star,int rate){
     if(star <= rate )
       return Theme.of(context).primaryColorDark;
     else
       return Theme.of(context).accentColor;
   }
+
+  void checkout (BuildContext context) {
+
+    this.jobProfile.available = 0;
+
+    _database.reference().child("JobProfile").child(this.jobProfile.key).set(this.jobProfile.toJson());
+
+    Navigator.pop(context, false);
+  }
+
 }

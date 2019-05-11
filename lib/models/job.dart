@@ -4,23 +4,25 @@ class JobProfile {
   String key;
   String avatar;
   String name;
-  double rate;
+  int rate;
   String experience;
   String diagnostic;
   String phone;
   String type;
-  
-  JobProfile(this.name, this.avatar, this.rate, this.experience, this.diagnostic, this.phone, this.type);
+  int _available;
+
+  JobProfile(this.name, this.avatar, this.rate, this.experience, this.diagnostic, this.phone, this.type, this._available);
   
   JobProfile.fromSnapshot(DataSnapshot snapshot) :
     key = snapshot.key,
     name = snapshot.value["name"],
     avatar = snapshot.value["avatar"],
-    rate = double.parse(snapshot.value["rate"]),
+    rate = snapshot.value["rate"],
     experience = snapshot.value["experience"],
     diagnostic = snapshot.value["diagnostic"],
     phone = snapshot.value["phone"],
-    type = snapshot.value["type"];
+    type = snapshot.value["type"],
+    _available = snapshot.value["available"]  ;
 
   toJson() {
     return {
@@ -30,7 +32,11 @@ class JobProfile {
       "experience": experience,
       "diagnostic": diagnostic,
       "phone": phone,
-      "type": type
+      "type": type,
+      "available": _available,
     };
   }
+
+  set available(int available) => this._available = available;
+  get available => this._available;
 }

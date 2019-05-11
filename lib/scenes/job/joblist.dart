@@ -1,6 +1,5 @@
 import 'dart:async';
 
-
 import 'package:flutter/material.dart';
 import 'package:Ari/models/job.dart';
 import 'package:Ari/scenes/job/jobprofile.dart';
@@ -22,6 +21,8 @@ class _JobProfileListState extends State<JobProfileList>{
 
   final FirebaseDatabase _database = FirebaseDatabase.instance;
   StreamSubscription<Event> _onAddedJobProfile;
+  StreamSubscription<Event> _onChangedJobProfile;
+  StreamSubscription<Event> _onRemoveJobProfile;
   List<JobProfile> jobProfiles ;
   int count = 0;
 
@@ -30,8 +31,10 @@ class _JobProfileListState extends State<JobProfileList>{
     super.initState();
     
     jobProfiles = List<JobProfile>();
-    _onAddedJobProfile = _database.reference().child("JobProfile").onChildAdded.listen(_onJobProfileAdded);
-
+    Query _jobProfileQuery =  _database.reference().child("JobProfile").orderByChild("available").equalTo(1);
+    _onAddedJobProfile = _jobProfileQuery.onChildAdded.listen(_onJobProfileAdded);
+    _onChangedJobProfile = _jobProfileQuery.onChildChanged.listen(_onJobProfileChanged);
+    _onRemoveJobProfile = _jobProfileQuery.onChildRemoved.listen(_onJobProfileRemoved);
   }
 
   @override
@@ -57,6 +60,8 @@ class _JobProfileListState extends State<JobProfileList>{
   
   void dispose() {
     _onAddedJobProfile.cancel();
+    _onChangedJobProfile.cancel();
+    _onRemoveJobProfile.cancel();
     super.dispose();
   }
 
@@ -100,7 +105,7 @@ class _JobProfileListState extends State<JobProfileList>{
     );
   }
 
-  Color getStarColor(int star,double rate){
+  Color getStarColor(int star,int rate){
     if(star <= rate )
       return Theme.of(context).primaryColorDark;
     else
@@ -108,12 +113,33 @@ class _JobProfileListState extends State<JobProfileList>{
   }
 
   void _onJobProfileAdded(Event event) {
-    if(event.snapshot.value["type"] == widget.jobType){
+    if(event.snapshot.value["type"] == widget.jobType && event.snapshot.value["available"]==1){
       setState(() {
         jobProfiles.add(new JobProfile.fromSnapshot(event.snapshot));
         count = jobProfiles.length;
       });
     }
+  }
+
+  void _onJobProfileChanged(Event event) {
+    var oldEntry = jobProfiles.singleWhere((entry) {
+      return entry.key == event.snapshot.key;
+    });
+
+    setState(() {
+      jobProfiles[jobProfiles.indexOf(oldEntry)] = JobProfile.fromSnapshot(event.snapshot);
+      count = jobProfiles.length;
+    });
+  }
+
+  void _onJobProfileRemoved(Event event){
+    jobProfiles.removeWhere((entry) {
+      return entry.key == event.snapshot.key;
+    });
+
+    setState(() {
+      count = jobProfiles.length;
+    });
   }
 
   void navigateToDetail(JobProfile jobProfile) async {
