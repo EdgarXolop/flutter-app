@@ -88,7 +88,7 @@ class _JobProfileDetailState extends State{
                       Padding(
                         padding: EdgeInsets.only(right: _formDistance),
                         child: RaisedButton(
-                          color: Theme.of(context).primaryColorDark,
+                          color: Theme.of(context).buttonColor,
                           textColor: Theme.of(context).primaryColorLight,
                           onPressed: ()=>this.checkout(context),
                           child: Text(
@@ -99,7 +99,7 @@ class _JobProfileDetailState extends State{
                       Padding(
                         padding: EdgeInsets.only(left: _formDistance),
                         child: RaisedButton(
-                          color: Theme.of(context).primaryColorDark,
+                          color: Theme.of(context).buttonColor,
                           textColor: Theme.of(context).primaryColorLight,
                           onPressed: ()=>this.contact(),
                           child: Text(

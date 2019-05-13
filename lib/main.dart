@@ -11,11 +11,12 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Ari',
       theme: ThemeData(
-        primaryColor: Color(0xFFFF9800),
-        primaryColorDark: Color(0xFFF57C00),
+        primaryColor: Color(0xFFFFC500),
+        primaryColorDark: Color(0xFFC69800),
         primaryColorLight: Color(0xFFFFE0B2),
         accentColor: Color(0xFFFFC107),
         dividerColor: Color(0xFFBDBDBD),
+        buttonColor: Color(0xFF000000),
         
         fontFamily: 'Montserrat',
         textTheme: TextTheme(

@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:Ari/models/service.dart';
 import 'package:flutter/material.dart';
 import 'package:Ari/models/job.dart';
 import 'package:Ari/scenes/job/jobprofile.dart';
@@ -8,8 +9,9 @@ import 'package:firebase_database/firebase_database.dart';
 class JobProfileList extends StatefulWidget {
   final String jobType;
   final String jobDescription;
+  final ServiceProfile srvProfile;
 
-  JobProfileList({ Key key, this.jobType, this.jobDescription })
+  JobProfileList({ Key key, this.jobType, this.jobDescription, this.srvProfile })
     : super(key: key);
 
   @override
@@ -54,7 +56,7 @@ class _JobProfileListState extends State<JobProfileList>{
         ),
       ),
       backgroundColor: Colors.white,
-      body: todoListItems(),
+      body: todoListItems()
     );
   }
   
@@ -65,10 +67,56 @@ class _JobProfileListState extends State<JobProfileList>{
     super.dispose();
   }
 
+  Card serviceInfo() {
+    return new Card(
+      child: new Column(
+        children: <Widget>[
+          Text(
+            widget.srvProfile.name
+          )
+        ],
+      ),
+    );
+  }
+
   ListView todoListItems(){
     return  ListView.builder(
-      itemCount: count,
+      itemCount: jobProfiles == null ? 1 : jobProfiles.length + 1,
       itemBuilder: (BuildContext context, int position){
+        if(position == 0){
+          return Container(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisSize: MainAxisSize.max,
+                children: <Widget>[
+                  Image.network(
+                    widget.srvProfile.image,
+                    height: 200,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      widget.srvProfile.name,
+                      style: TextStyle(
+                        fontSize: 20.0,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      textAlign: TextAlign.center
+                    ),
+                  ),
+                  Text(widget.srvProfile.description,
+                      style: TextStyle(
+                        fontSize: 14.0,
+                        color: Colors.black45,
+                      )),
+                ],
+              ),
+              padding: EdgeInsets.all(10.0),
+          );
+        }
+
+        position -= 1;
+
         return Card(
           color: Theme.of(context).primaryColorLight,
           elevation: 2.0,
@@ -89,11 +137,11 @@ class _JobProfileListState extends State<JobProfileList>{
             ),
             subtitle:Row(
               children: <Widget>[
-                Icon(Icons.star,color: getStarColor(1,this.jobProfiles[position].rate)),
-                Icon(Icons.star,color: getStarColor(2,this.jobProfiles[position].rate)),
-                Icon(Icons.star,color: getStarColor(3,this.jobProfiles[position].rate)),
-                Icon(Icons.star,color: getStarColor(4,this.jobProfiles[position].rate)),
-                Icon(Icons.star,color: getStarColor(5,this.jobProfiles[position].rate)),
+                Icon(Icons.star, color: getStarColor(1,this.jobProfiles[position].rate)),
+                Icon(Icons.star, color: getStarColor(2,this.jobProfiles[position].rate)),
+                Icon(Icons.star, color: getStarColor(3,this.jobProfiles[position].rate)),
+                Icon(Icons.star, color: getStarColor(4,this.jobProfiles[position].rate)),
+                Icon(Icons.star, color: getStarColor(5,this.jobProfiles[position].rate)),
               ],
             ),
             onTap: (){
@@ -107,13 +155,14 @@ class _JobProfileListState extends State<JobProfileList>{
 
   Color getStarColor(int star,int rate){
     if(star <= rate )
-      return Theme.of(context).primaryColorDark;
-    else
       return Theme.of(context).accentColor;
+    else
+      return Theme.of(context).primaryColorDark;
   }
 
   void _onJobProfileAdded(Event event) {
-    if(event.snapshot.value["type"] == widget.jobType && event.snapshot.value["available"]==1){
+    
+    if(event.snapshot.value["type"] == widget.jobType && event.snapshot.value["available"] == 1){
       setState(() {
         jobProfiles.add(new JobProfile.fromSnapshot(event.snapshot));
         count = jobProfiles.length;

@@ -30,8 +30,8 @@ class Home extends StatelessWidget {
                 Padding(
                   padding: EdgeInsets.only(right: _paddingElement),
                   child: RaisedButton(
-                    color: Theme.of(context).primaryColorLight,
-                    textColor: Theme.of(context).primaryColorDark,
+                    color: Theme.of(context).buttonColor,
+                    textColor: Theme.of(context).primaryColorLight,
                     onPressed: ()=>this.navigateToSignup(context),
                     child: Text(
                       'Registrarse'
@@ -41,7 +41,7 @@ class Home extends StatelessWidget {
                 Padding(
                   padding: EdgeInsets.only(left: _paddingElement),
                   child: RaisedButton(
-                    color: Theme.of(context).primaryColorDark,
+                    color: Theme.of(context).buttonColor,
                     textColor: Theme.of(context).primaryColorLight,
                     onPressed: ()=>this.navigateToSignin(context),
                     child: Text(

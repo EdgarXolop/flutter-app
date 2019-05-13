@@ -29,7 +29,7 @@ class _Signin extends State {
         backgroundColor: Theme.of(context).primaryColorDark,
         automaticallyImplyLeading: false,
         title: Text(
-          "Conectarse",
+          "CONECTARSE",
           style: TextStyle(
             color: Theme.of(context).primaryColorLight,
           ),
@@ -98,7 +98,7 @@ class _Signin extends State {
                     bottom: _formDistance
                   ),
                   child: RaisedButton(
-                    color: Theme.of(context).primaryColorDark,
+                    color: Theme.of(context).buttonColor,
                     textColor: Theme.of(context).primaryColorLight,
                     onPressed: ()=>this.signIn(context),
                     child: Text(

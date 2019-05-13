@@ -1,4 +1,4 @@
-import 'package:Ari/scenes/job/joblist.dart';
+import 'package:Ari/scenes/job/serviceList.dart';
 import 'package:flutter/material.dart';
 
 class Main extends StatelessWidget {
@@ -18,7 +18,7 @@ class Main extends StatelessWidget {
           children: <Widget>[
             Container(),
             Center(
-              child: FlatButton(
+              child: RaisedButton(
                 color: Theme.of(context).primaryColorDark,
                 onPressed: () { showRelated(context, "electricity", "Electricidad"); },
                 child: Column( 
@@ -36,6 +36,7 @@ class Main extends StatelessWidget {
                     ),
                   ],
                 ),
+                shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(100.0))
               ),
             ),
             Row(
@@ -43,7 +44,7 @@ class Main extends StatelessWidget {
               children: <Widget>[
                 Padding(
                   padding: EdgeInsets.only(right: _paddingElement),
-                  child: FlatButton(
+                  child: RaisedButton(
                     color: Theme.of(context).primaryColorDark,
                     onPressed: ()  { showRelated(context, "painting", "Pintura"); },
                     child: Column( 
@@ -61,11 +62,12 @@ class Main extends StatelessWidget {
                         ),
                       ],
                     ),
+                    shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(100.0))
                   ),
                 ),
                 Padding(
                   padding: EdgeInsets.only(left: _paddingElement),
-                  child: FlatButton(
+                  child: RaisedButton(
                     color: Theme.of(context).primaryColorDark,
                     onPressed: ()  { showRelated(context, "plumbing", "Plomería"); },
                     child: Column( 
@@ -83,6 +85,7 @@ class Main extends StatelessWidget {
                         ),
                       ],
                     ),
+                    shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(100.0))
                   ),
                 ),
               ],
@@ -114,7 +117,7 @@ class Main extends StatelessWidget {
   }
 
   void showRelated(BuildContext context, String jobType, String jobDescriprion ) {
-    Navigator.push(context, MaterialPageRoute(builder: (context) => JobProfileList(jobType: jobType, jobDescription: jobDescriprion,)));
+    Navigator.push(context, MaterialPageRoute(builder: (context) => ServiceList(jobType: jobType, jobDescription: jobDescriprion,)));
   }
 
 }

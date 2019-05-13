@@ -37,7 +37,7 @@ class _Signup extends State {
           onPressed:() => Navigator.pop(context, false),
         ),
         title: Text(
-          "Conectarse",
+          "CONECTARSE",
           style: TextStyle(
             color: Theme.of(context).primaryColorLight,
           ),
@@ -148,9 +148,10 @@ class _Signup extends State {
                     bottom: _formDistance
                   ),
                   child: RaisedButton(
-                    color: Theme.of(context).primaryColorDark,
+                    color: Theme.of(context).buttonColor,
                     textColor: Theme.of(context).primaryColorLight,
                     onPressed: ()=>this.navigateToMainPage(context),
+                    padding: EdgeInsets.all(10.0),
                     child: Text(
                       'Registrarse'
                     ),
