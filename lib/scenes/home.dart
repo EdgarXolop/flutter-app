@@ -24,29 +24,39 @@ class Home extends StatelessWidget {
                 height: 130,
               ),
             ),
-            Row(
+            Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Padding(
-                  padding: EdgeInsets.only(right: _paddingElement),
+                  padding: EdgeInsets.only(right: 0.0),
                   child: RaisedButton(
                     color: Theme.of(context).buttonColor,
                     textColor: Theme.of(context).primaryColorLight,
                     onPressed: ()=>this.navigateToSignup(context),
                     child: Text(
-                      'Registrarse'
-                    )
+                      'Registrarse',
+                      style: TextStyle(
+                        fontSize: 15.0,
+                        fontFamily: "Poppins"
+                      ),
+                    ),
+                    shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(25.0))
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.only(left: _paddingElement),
+                  padding: EdgeInsets.only(left: 0.0),
                   child: RaisedButton(
                     color: Theme.of(context).buttonColor,
                     textColor: Theme.of(context).primaryColorLight,
                     onPressed: ()=>this.navigateToSignin(context),
                     child: Text(
-                      'Conectarse'
+                      'Conectarse',
+                      style: TextStyle(
+                        fontSize: 15.0,
+                        fontFamily: "Poppins"
+                      ),
                     ),
+                    shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(25.0))
                   ),
                 ),
               ],

@@ -155,9 +155,9 @@ class _JobProfileDetailState extends State{
 
   Color getStarColor(int star,int rate){
     if(star <= rate )
-      return Theme.of(context).primaryColorDark;
-    else
       return Theme.of(context).accentColor;
+    else
+      return Theme.of(context).primaryColorDark;
   }
 
   void contact (){

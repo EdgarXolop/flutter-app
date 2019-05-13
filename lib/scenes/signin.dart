@@ -44,53 +44,57 @@ class _Signin extends State {
           key: formKey,
           child: ListView(
             children: <Widget>[
-                Padding(
-                  padding: EdgeInsets.only(
-                    top: _formDistance,
-                    bottom: _formDistance
-                  ),
-                  child: TextFormField(
-                    autovalidate: true,
+                new Padding(
+                  padding: EdgeInsets.only(top: 10.0)),
+                  new TextFormField(
                     controller: emailController,
-                    style: textStyle1,
-                    textCapitalization: TextCapitalization.none,
-                    keyboardType: TextInputType.emailAddress,
-                    validator: (value) => value.isEmpty ? 'Debe ingresar su correo':null,
-                    decoration: InputDecoration(
+                    decoration: new InputDecoration(
                       labelText: "Correo",
-                      labelStyle: textStyle1,
-                      border: UnderlineInputBorder(
-                        borderRadius: BorderRadius.circular(5.0),
-                        borderSide: BorderSide(
-                          color: Theme.of(context).primaryColorLight
-                        )
-                      )
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.only(
-                    top: _formDistance,
-                    bottom: _formDistance
-                  ),
-                  child: TextFormField(
-                    obscureText: true,
-                    autovalidate: true,
-                    controller: passwordController,
-                    style: textStyle1,
-                    validator: (value) => value.isEmpty ? 'Debe ingresar su contraseña':null,
-                    decoration: InputDecoration(
-                      labelText: "Contraseña",
-                      labelStyle: textStyle1,
-                      border: UnderlineInputBorder(
-                        borderRadius: BorderRadius.circular(5.0),
-                        borderSide: BorderSide(
-                          color: Theme.of(context).primaryColorLight
+                      fillColor: Colors.white,
+                      border: new OutlineInputBorder(
+                        borderRadius: new BorderRadius.circular(25.0),
+                        borderSide: new BorderSide(
                         ),
-                      )
+                      ),
+                    ),
+                    validator: (val) {
+                      if(val.length == 0) {
+                        return "Debe ingresar su correo";
+                      }else{
+                        return null;
+                      }
+                    },
+                    keyboardType: TextInputType.emailAddress,
+                    style: new TextStyle(
+                      fontFamily: "Poppins",
                     ),
                   ),
-                ),
+                Padding(
+                  padding: EdgeInsets.only(top: 10.0)),
+                  new TextFormField(
+                    obscureText: true,
+                    controller: passwordController,
+                    decoration: new InputDecoration(
+                      labelText: "Contraseña",
+                      fillColor: Colors.white,
+                      border: new OutlineInputBorder(
+                        borderRadius: new BorderRadius.circular(25.0),
+                        borderSide: new BorderSide(
+                        ),
+                      ),
+                    ),
+                    validator: (val) {
+                      if(val.length == 0) {
+                        return "Debe ingresar su contraseña";
+                      }else{
+                        return null;
+                      }
+                    },
+                    keyboardType: TextInputType.emailAddress,
+                    style: new TextStyle(
+                      fontFamily: "Poppins",
+                    ),
+                  ),
                 _showErrorMessage(),
                 Padding(
                   padding: EdgeInsets.only(
@@ -98,11 +102,20 @@ class _Signin extends State {
                     bottom: _formDistance
                   ),
                   child: RaisedButton(
+                    padding: EdgeInsets.only(
+                      top: 17.0,
+                      bottom: 17.0
+                    ),
                     color: Theme.of(context).buttonColor,
                     textColor: Theme.of(context).primaryColorLight,
+                    shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(25.0)),
                     onPressed: ()=>this.signIn(context),
                     child: Text(
-                      'Conectarse'
+                      'Conectarse',
+                      style: TextStyle(
+                        fontSize: 20.0,
+                        fontFamily: "Poppins"
+                      ),
                     ),
                   ),
                 ),
@@ -141,18 +154,44 @@ class _Signin extends State {
 
 
   void signIn(BuildContext context) async {
-
     if(this.validateAndSave()){
+      
+      showDialog(
+        context: context,
+        barrierDismissible: false,
+        child: getSpinner()
+      );
+
       try {
         await Auth().signIn(emailController.text, passwordController.text);
 
         Navigator.push(context, MaterialPageRoute(builder: (context) => Main()));
       } catch (e) {
         setState(() {
-         _errorMessage="Usuario inválido"; 
+         _errorMessage="Usuario inválido";
+          Navigator.pop(context);
+          //Navigator.pop(context, false);  
         });
       }
 
     }
+  }
+
+  
+  Widget getSpinner(){
+    return new Stack(
+      children: [
+        new Opacity(
+          opacity: 0.3,
+          child: const ModalBarrier(dismissible: false, color: Colors.grey),
+        ),
+        new Center(
+          child: new CircularProgressIndicator(),
+        ),
+        new Center(
+          child: new CircularProgressIndicator(),
+        ),
+      ],
+    );
   }
 }
