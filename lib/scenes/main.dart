@@ -1,3 +1,4 @@
+import 'package:Ari/scenes/faq.dart';
 import 'package:Ari/scenes/job/serviceList.dart';
 import 'package:Ari/util/auth.dart';
 import 'package:Ari/scenes/home.dart';
@@ -12,6 +13,7 @@ class Main extends StatefulWidget{
 }
 class _Main extends State {
 
+  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   final _padding = 40.0;
   final _paddingElement = 10.0;
 
@@ -32,8 +34,16 @@ class _Main extends State {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
       backgroundColor: Theme.of(context).primaryColor,
-      appBar: null,
+      appBar: new AppBar(
+        elevation: 0,
+        backgroundColor: Theme.of(context).primaryColor,
+        leading: new IconButton(
+                icon: new Icon(Icons.settings),
+                onPressed: () => _scaffoldKey.currentState.openDrawer()
+        )
+      ),
       drawer: Drawer(
         child: ListView(
           padding: EdgeInsets.zero,
@@ -51,20 +61,26 @@ class _Main extends State {
               ),
             ),
             ListTile(
+              leading: new Icon(Icons.person),
               title: Text(name,style: Theme.of(context).textTheme.body1,),
             ),
+            Divider(),
             ListTile(
-              title: Text('FAQ',style: Theme.of(context).textTheme.body1,),
+              leading: new Icon(Icons.question_answer),
+              title: Text('FAQ',style: Theme.of(context).textTheme.body1),
               onTap: () {
-                Navigator.pop(context);
+                Navigator.push(context, MaterialPageRoute(builder: (context) => FAQ()));
               },
             ),
+            Divider(),
             ListTile(
-              title: Text('Cerrar sesion.',style: Theme.of(context).textTheme.body1,),
+              leading: new Icon(Icons.input),
+              title: Text('Cerrar Sesión', style: Theme.of(context).textTheme.body1,),
               onTap: ()async {
                 await Auth().signOut();
                 Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Home()));
               },
+              
             ),
           ],
         ),
@@ -74,7 +90,6 @@ class _Main extends State {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: <Widget>[
-            Container(),
             Center(
               child: RaisedButton(
                 color: Theme.of(context).primaryColorDark,
