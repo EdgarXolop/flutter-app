@@ -1,14 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:Ari/scenes/signin.dart';
 import 'package:Ari/scenes/signup.dart';
+import 'package:Ari/util/auth.dart';
+import 'package:Ari/scenes/main.dart';
 
 class Home extends StatelessWidget {
 
   final _padding = 40.0;
-  final _paddingElement = 20.0;
+  bool init = false;
 
   @override
   Widget build(BuildContext context) {
+
+    if(!init){
+      Auth().currentUser()
+      .then((String user_id){
+        print(user_id);
+        if(user_id != null){
+          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Main()));
+        }
+      });
+
+      init = true;
+    }
+
     return Scaffold(
       backgroundColor: Theme.of(context).primaryColor,
       body: Container(

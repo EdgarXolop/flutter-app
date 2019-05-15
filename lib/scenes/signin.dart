@@ -20,8 +20,6 @@ class _Signin extends State {
 
   @override
   Widget build(BuildContext context) {
-    
-    TextStyle textStyle1 = Theme.of(context).textTheme.body1;
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -165,12 +163,11 @@ class _Signin extends State {
       try {
         await Auth().signIn(emailController.text, passwordController.text);
 
-        Navigator.push(context, MaterialPageRoute(builder: (context) => Main()));
+        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Main()));
       } catch (e) {
         setState(() {
          _errorMessage="Usuario inválido";
           Navigator.pop(context);
-          //Navigator.pop(context, false);  
         });
       }
 

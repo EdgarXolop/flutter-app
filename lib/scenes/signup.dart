@@ -26,7 +26,6 @@ class _Signup extends State {
   @override
   Widget build(BuildContext context) {
     
-    TextStyle textStyle1 = Theme.of(context).textTheme.body1;
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -305,7 +304,7 @@ class _Signup extends State {
       try {
         await Auth().createUserWithName(nameController.text, emailController.text, passwordController.text);
 
-        Navigator.push(context, MaterialPageRoute(builder: (context) => Main()));
+        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Main()));
       } catch (e) {
         setState(() {
          _errorMessage="Datos inválidos"; 
