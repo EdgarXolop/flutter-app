@@ -1,5 +1,8 @@
+import 'package:Ari/scenes/credit_card.dart';
 import 'package:Ari/scenes/faq.dart';
 import 'package:Ari/scenes/job/serviceList.dart';
+import 'package:Ari/scenes/profile_info.dart';
+import 'package:Ari/scenes/prom_code.dart';
 import 'package:Ari/util/auth.dart';
 import 'package:Ari/scenes/home.dart';
 import 'package:flutter/material.dart';
@@ -17,6 +20,7 @@ class _Main extends State {
   final _padding = 40.0;
   final _paddingElement = 10.0;
 
+  FirebaseUser userLogged;
   String name = "";
 
   @override
@@ -26,7 +30,8 @@ class _Main extends State {
     Auth().gentUser()
     .then((FirebaseUser user){
       setState(() {
-       name = user.displayName; 
+        userLogged = user;
+       name = userLogged.displayName; 
       });
     });
   }
@@ -62,9 +67,26 @@ class _Main extends State {
             ),
             ListTile(
               leading: new Icon(Icons.person),
-              title: Text(name,style: Theme.of(context).textTheme.body1,),
+              title: Text(name, style: Theme.of(context).textTheme.body1,),
+              onTap: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) => ProfileInfo(userLogged)));
+              },
             ),
             Divider(),
+            ListTile(
+              leading: new Icon(Icons.credit_card),
+              title: Text('Métodos de Pago', style: Theme.of(context).textTheme.body1),
+              onTap: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) => CreditCard(userLogged.uid)));
+              },
+            ),
+            ListTile(
+              leading: new Icon(Icons.card_giftcard),
+              title: Text('Promociones', style: Theme.of(context).textTheme.body1),
+              onTap: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) => PromCode(userLogged.uid)));
+              },
+            ),
             ListTile(
               leading: new Icon(Icons.question_answer),
               title: Text('FAQ',style: Theme.of(context).textTheme.body1),

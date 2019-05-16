@@ -114,15 +114,14 @@ class FAQState extends State<FAQ> {
 
     return Scaffold(
       appBar: new AppBar(
-        elevation: 0,
+        elevation: 5,
         backgroundColor: Color(0xFFFFFFFF),
         leading: null,
         title: new Text(
           "Preguntas Frecuentes",
           style: new TextStyle(
-            fontSize: 25.0,
-            color: Theme.of(context).primaryColor,
-            fontWeight: FontWeight.bold
+            fontSize: 20.0,
+            color: Theme.of(context).primaryColor
           ),
         ),
         

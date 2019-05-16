@@ -307,7 +307,7 @@ class _Signup extends State {
         Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Main()));
       } catch (e) {
         setState(() {
-         _errorMessage="Datos inválidos"; 
+         _errorMessage = "Datos inválidos"; 
           Navigator.pop(context);
         });
       }
