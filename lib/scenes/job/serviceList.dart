@@ -57,10 +57,42 @@ class _ServiceListState extends State<ServiceList>{
         ),
       ),
       backgroundColor: Colors.white,
-      body: serviceListItems(),
+      body: buildBody()
     );
   }
 
+  Widget buildBody() {
+    if(widget.jobType == "painting")
+      return inBuildOption();
+    else
+      return serviceListItems();
+  }
+
+  Widget inBuildOption() {
+    return new Center(
+      child: new Column(
+        children: <Widget>[
+          Padding(
+            padding: EdgeInsets.all(50.0),
+          ),
+          Text(
+            "Próximamente...", 
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontSize: 20.0,
+              color: Theme.of(context).primaryColor,
+              fontWeight: FontWeight.bold
+            ),
+          ),
+          Image(
+            image: AssetImage('assets/images/build.png'),
+            width: 80,
+            height: 100,
+          )
+        ],
+      ),
+    );
+  }
   
   ListView serviceListItems(){
     return  ListView.builder(

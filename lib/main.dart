@@ -11,7 +11,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Ari',
       theme: ThemeData(
-        primaryColor: Color(0xFFFFC500),
+        primaryColor: Color(0xFFFDC53C),
         primaryColorDark: Color(0xFFC69800),
         primaryColorLight: Color(0xFFFFE0B2),
         accentColor: Color(0xFFFFC107),

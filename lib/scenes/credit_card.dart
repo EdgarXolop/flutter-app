@@ -271,6 +271,9 @@ class CreditCardState extends State<CreditCard> {
               new FlatButton(
                 child: new Text('Cancelar'),
                 onPressed: () {
+                  _cardNumberController.text = "";
+                  _expirationController.text = "";
+                  _cvvController.text = "";    
                   Navigator.of(context).pop();
                 },
               )
@@ -287,12 +290,14 @@ class CreditCardState extends State<CreditCard> {
     SimpleCreditCard newCard = new SimpleCreditCard(creditCardNum, expiration, cvv);
 
     notesReference.push().set(newCard.toJson())
-    .then((_) {
-      Navigator.of(context).pop();  
+    .then((_) { 
 
       _cardNumberController.text = "";
       _expirationController.text = "";
-      _cvvController.text = "";    
+      _cvvController.text = ""; 
+      
+      Navigator.of(context).pop(); 
+
     });
   }
 

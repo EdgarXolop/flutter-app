@@ -89,7 +89,7 @@ class _Main extends State {
             ),
             ListTile(
               leading: new Icon(Icons.question_answer),
-              title: Text('FAQ',style: Theme.of(context).textTheme.body1),
+              title: Text('Preguntas Frecuentes',style: Theme.of(context).textTheme.body1),
               onTap: () {
                 Navigator.push(context, MaterialPageRoute(builder: (context) => FAQ()));
               },
@@ -140,14 +140,14 @@ class _Main extends State {
                 Padding(
                   padding: EdgeInsets.only(right: _paddingElement),
                   child: RaisedButton(
-                    color: Theme.of(context).primaryColorDark,
+                    color: Color(0xFFC59800),
                     onPressed: ()  { showRelated(context, "painting", "Pintura"); },
                     child: Column( 
                       children: <Widget>[
                         Text(
                           "Pintura",
                           style: TextStyle(
-                            color: Color(0xFFFFFFFF),
+                            color: Color(0xAAFFFFFF),
                           )
                         ),
                         Image(
@@ -185,16 +185,11 @@ class _Main extends State {
                 ),
               ],
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: <Widget>[
-                Image(
-                  image: AssetImage('assets/images/logo.png'),
-                  width: 80,
-                  height: 100,
+            Image(
+                  image: AssetImage('assets/images/2.png'),
+                  width: 450,
+                  height: 200,
                 )
-              ],
-            )
           ],
         ),
       ),
